@@ -1,24 +1,19 @@
 import requests
 
 
-def get_employers(query: str, per_page: int = 10) -> list:
+def get_employers(employer_ids: str) -> list:
     """Получить список работодателей по ключевому запросу."""
-    url = "https://api.hh.ru/employers"
-    params = {
-        "text": query,
-        "per_page": per_page,
-        "only_with_vacancies": True,
-    }
-    response = requests.get(url, params=params)
+    url = f"https://api.hh.ru/employers/{employer_ids}"
+    response = requests.get(url)
     response.raise_for_status()
-    return response.json()["items"]
+    return response.json()
 
 
-def get_vacancies_by_employer(employer_id: int, per_page: int = 10) -> list:
+def get_vacancies_by_employer(employer_ids: int, per_page: int = 10) -> list:
     """Получить вакансии конкретного работодателя."""
-    url = f"https://api.hh.ru/vacancies"
+    url = f"https://api.hh.ru/vacancies/"
     params = {
-        "employer_id": employer_id,
+        "employer_id": employer_ids,
         "per_page": per_page,
     }
     response = requests.get(url, params=params)
@@ -28,18 +23,5 @@ def get_vacancies_by_employer(employer_id: int, per_page: int = 10) -> list:
 
 
 
-
-
-# company_names = [
-#     "Яндекс", "Тинькофф", "Сбербанк", "VK", "Лаборатория Касперского",
-#     "1С", "Ростелеком", "Ozon", "Wildberries", "Авито"
-# ]
-#
-# employers_data = []
-# for company in company_names:
-#     employers = get_employers(company, per_page=1)
-#     if employers:
-#         employers_data.append(employers[0])
-#     time.sleep(1)  # Чтобы не превысить лимиты API
 
 
