@@ -8,25 +8,22 @@ from src.hh import get_employers, get_vacancies_by_employer
 if __name__ == "__main__":
     db_name = "hh"
     params = config()
-    #
-    # create_database(db_name,params )
-    # create_tables(db_name,params )
-    #
-    # # Создание таблицы
-    # # id employer_id name salary url
-    # # id name рабодататель связь с помощью references
-    # employers = []
-    # vacancies = []
-    # for ed_id in employer_ids:
-    #     employers_info = get_employers(ed_id)
-    #     employers.append(employers_info)
-    #     vacan = get_vacancies_by_employer(ed_id, per_page=100)
-    #     vacancies.extend(vacan)
-    # fill_tables(employers,vacancies,db_name,params)
-    #
 
+    create_database(db_name,params )
+    create_tables(db_name,params )
+
+    # Создание таблицы
+    # id employer_id name salary url
+    # id name рабодататель связь с помощью references
+    employers = []
+    vacancies = []
+    for ed_id in employer_ids:
+        employers_info = get_employers(ed_id)
+        employers.append(employers_info)
+        vacan = get_vacancies_by_employer(ed_id, per_page=100)
+        vacancies.extend(vacan)
+    fill_tables(employers,vacancies,db_name,params)
     db_manager = DBManager(db_name, params)
-
     print("\nКомпании и количество вакансий:")
     for company in db_manager.get_companies_and_vacancies_count():
         print(f"Компания {company[0]}: {company[1]} вакансия")
