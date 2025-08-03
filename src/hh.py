@@ -19,9 +19,3 @@ def get_vacancies_by_employer(employer_ids: int, per_page: int = 10) -> list:
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()["items"]
-
-
-
-
-
-
